@@ -21,11 +21,10 @@ export const CartContextProvider = (props: Props) =>  {
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
     const [cartTotalAmount,setCartTotalAmount] = useState(0);
 
-    console.log('qty', cartTotalQty)
-    console.log('amount', cartTotalAmount)
+   
     useEffect(() => {
         const cartItems:any = localStorage.getItem('storeCartItems')
-        const cProducts: CartProductType[] | null = JSON.parse(cartItems)
+        const cProducts: CartProductType[] | null = JSON.parse(cartItems) || null;
         setCartProducts(cProducts)
     },[])
 
@@ -45,11 +44,11 @@ export const CartContextProvider = (props: Props) =>  {
                 setCartTotalAmount(total);
             }
         }
-        getTotals()
+        getTotals();
     },[cartProducts])
 
-    const handleAddProductToCart = useCallback((product: CartContextType)=> {
-        setCartProducts((prev:any)=>{
+    const handleAddProductToCart = useCallback((product: CartProductType)=> {
+        setCartProducts((prev) => {
             let updatedCart;
             if(prev) {
                 updatedCart = [...prev, product];
@@ -69,7 +68,7 @@ export const CartContextProvider = (props: Props) =>  {
             })
             setCartProducts(filterdProducts);
             toast.success("Product removed");
-            localStorage.setItem("shopCartItems", JSON.stringify(filterdProducts))
+            localStorage.setItem("storeCartItems", JSON.stringify(filterdProducts))
         }
     },[cartProducts])
 
@@ -83,8 +82,7 @@ export const CartContextProvider = (props: Props) =>  {
             const existingIndex = cartProducts.findIndex((item) => 
             item.id === product.id);
             if(existingIndex > -1) {
-                updatedCart[existingIndex].quantity === 
-                ++updatedCart[existingIndex].quantity
+                updatedCart[existingIndex].quantity = ++updatedCart[existingIndex].quantity
                 setCartProducts(updatedCart)
                 localStorage.setItem('storeCartItems', JSON.stringify(updatedCart))
             }
@@ -102,8 +100,7 @@ export const CartContextProvider = (props: Props) =>  {
             item.id === product.id);
 
             if(existingIndex > -1) {
-                updatedCart[existingIndex].quantity === 
-                --updatedCart[existingIndex].quantity
+                updatedCart[existingIndex].quantity = --updatedCart[existingIndex].quantity
                 setCartProducts(updatedCart)
                 localStorage.setItem('storeCartItems', JSON.stringify(updatedCart))
             }
@@ -126,7 +123,7 @@ export const CartContextProvider = (props: Props) =>  {
         handleCartQtyIncrease,
         handleCartQtyDecrease,
         handleClearCart,
-        handleRemoveProductFromCart,
+        handleRemoveProductFromCart
         
     
     }

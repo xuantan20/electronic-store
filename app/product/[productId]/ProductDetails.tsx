@@ -17,7 +17,7 @@ export type CartProductType = {
   name: string,
   discription: string,
   category: string,
-  brand: number,
+  brand: string,
   selectedImg: SelectedImgType,
   quantity: number,
   price: number

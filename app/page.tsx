@@ -4,8 +4,9 @@ import HomeBanner from "./components/HomeBanner";
 import { products } from "@/utils/products";
 import ProductCard from "./components/products/ProductCard";
 import { useState } from "react";
+import { CartProductType } from "./product/[productId]/ProductDetails";
 export default function Home() {
-  const [productType,setProductType] = useState();
+  const [productType,setProductType] = useState<CartProductType[] | null>(null);
   const filteredPhones = products.filter((item) => {
     return item.category === "Phone"
   }) 
@@ -22,7 +23,7 @@ export default function Home() {
   return (
     <div className="p-8">
       <Container>
-       <div className="grid grid-cols-5 items-center">
+       {/* <div className="grid grid-cols-5 items-center">
       
           <span  onClick={() =>setProductType(products)}
           className="border-[1px] 
@@ -74,7 +75,7 @@ export default function Home() {
           justify-self-center
           rounded-md
           ">Watch</span>
-       </div>
+       </div> */}
         <div className="mt-5">
           <HomeBanner/>
         </div>
